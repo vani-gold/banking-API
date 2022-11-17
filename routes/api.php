@@ -17,7 +17,8 @@ use App\Http\Controllers\V1\AccountController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+    
+    });    
 
 Route::prefix('v1')->group(function(){
     Route::apiResource('account', AccountController::class);

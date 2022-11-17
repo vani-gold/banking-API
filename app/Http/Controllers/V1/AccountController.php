@@ -3,20 +3,25 @@
 namespace App\Http\Controllers\V1;
 
 use App\Models\Account;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAccountRequest;
+use App\Http\Resources\V1\AccountResource;
 use App\Http\Requests\UpdateAccountRequest;
 
 class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     *Request $request
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return Account::all();  //post
+        // ::where('user_id', $request->user()->id)
+        // return Account::all();  //get all
+        return AccountResource::collection(Account::paginate());
+        // return AccountResource::collection(Account::where('user_id', $request->user()->id)->paginate());
     }
 
     /**
@@ -29,7 +34,8 @@ class AccountController extends Controller
     {
         $account = Account::create($request->all());
 
-        return $account;  //get all
+        // return $account;  //create an account
+        return new AccountResource($account);
     }
 
     /**
@@ -41,6 +47,7 @@ class AccountController extends Controller
     public function show(Account $account)
     {
         return $account; //get 1
+        // return new AccountResource($account);
     }
 
     /**
@@ -53,8 +60,8 @@ class AccountController extends Controller
     public function update(UpdateAccountRequest $request, Account $account)
     {
         $account->update($request->all());
-
-        return $account;  
+        // return $account;  
+        return new AccountResource($account);
     }
 
     /**
@@ -67,6 +74,6 @@ class AccountController extends Controller
     {
         $account->delete();
 
-        return response('deleted', 204);
+        return response('', 204);
     }
 }

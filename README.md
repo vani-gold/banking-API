@@ -64,3 +64,8 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+version laravel 9
+i used versioning v1 for scalability
+use packages like breeze and sanctum breeze facilitate the login interface and sanctum help provide authentication tokens for the API

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
+ 
+
 class ProfileController extends Controller
 {
     /**
@@ -21,7 +23,26 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
+    // public function token(Request $request) {
+    //     $token = $request->user()->createToken($request->token_name);
+     
+    //     return ['token' => $token->plainTextToken];
+    // }
+    public function createToken(Request $request)
+    {
+        $request->validate([
+            'name' => 'required'
+        ]);
+        $tokenName = $request->post('name');
 
+        $user = $request->user();
+        $token = $user->createToken($tokenName);
+
+        return view('token-show', [
+            'tokenName' => $tokenName,
+            'token' => $token->plainTextToken
+        ]);
+    }
     /**
      * Update the user's profile information.
      *

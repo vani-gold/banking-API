@@ -16,4 +16,5 @@ class AccountResource extends JsonResource
     {
         return parent::toArray($request);
     }
+
 }
